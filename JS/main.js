@@ -17,6 +17,10 @@ const promotionalCode = [
 const myForm = document.getElementById("form");
 
 
+/*PRELEVO DAL DOM IL TAG H2*/
+const result = document.getElementById("priceResult");
+
+
 /*EVENTO CAUSATO AL PREMERE DEL PULSANTE*/
 myForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -39,8 +43,21 @@ myForm.addEventListener("submit", function (event) {
     let finalPrice = jobPrice * workingHours
     console.log(finalPrice);
 
+    
 
+    /*VERIFICA DEL CORRETTO INSERIMENTO DEL CODICE PROMOZIONALE*/
+    /*PRELEVO DAL DOM IL CODICE PROMOZIONALE*/
+    const myCode = document.getElementById("myPromotionalCode").value.trim().toUpperCase();
+    console.log(myCode)
+    let rightPromotionalCode = false;
+    for (let i = 0; i < promotionalCode.length; i++) {
+        if (myCode === promotionalCode[i]) {
+            rightPromotionalCode = true;
+            break;
+        };
+    };    
 
+    console.log(rightPromotionalCode);
 
 
 });
