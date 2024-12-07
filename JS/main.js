@@ -25,6 +25,7 @@ const result = document.getElementById("priceResult");
 myForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    /*VERIFICA CHE IL CAMPO TIPO DI LAVORO SIA STATO SELEZIONATO*/
     /*CALCOLO DEL PREZZO*/
     let job = document.getElementById("inputSelect").value;
     let jobPrice;
@@ -35,9 +36,12 @@ myForm.addEventListener("submit", function (event) {
     } else if (job === "2") {
         jobPrice = price.frontend;
     
-    } else {
+    } else if (job === "3") {
         jobPrice = price.analysis;
     
+    } else if (job === "Seleziona il tipo di Lavoro") {
+        result.innerHTML = "Per favore, seleziona un tipo di lavoro.";
+        return;
     };
     console.log(jobPrice);
     let finalPrice = jobPrice * workingHours
@@ -58,6 +62,22 @@ myForm.addEventListener("submit", function (event) {
     };    
 
     console.log(rightPromotionalCode);
+    
+    /*SALVO UNA VARIABILE DISCOUNT CHE DETERMINA LO SCONTO*/
+    const discount = 25;
 
+    /*SALVO UNA VARIABILE DISCOUNTED PRICE CHE DETERMINA IL PREZZO SCONTATO*/
+    let discountedPrice = finalPrice;
 
+    /*CALCOLO SCONTO*/
+    if (rightPromotionalCode) {
+        discountedPrice = finalPrice - ((finalPrice * discount) / 100);
+        console.log(discountedPrice);
+        result.innerHTML = `Codice sconto valido, prezzo finale: ${discountedPrice.toFixed(2)} €`;
+    } else if (myCode !== "") {
+        result.innerHTML = `Codice sconto non valido, prezzo finale: ${finalPrice.toFixed(2)} €`;
+    } else {
+        result.innerHTML = `Prezzo finale: €${finalPrice.toFixed(2)}`;
+    }
+    
 });
